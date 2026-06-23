@@ -1,205 +1,201 @@
-# Student Dashboard App
+# AcademicX — Biometric Attendance & Academic Management System
 
-A comprehensive React Native application built with Expo CLI that provides a student dashboard interface with navigation, student management, course tracking, and attendance monitoring.
+AcademicX is a full-stack platform that **automates classroom attendance using facial recognition** and unifies an institution's core academic operations — departments, batches, courses, students, timetables, marks, and leave — into one connected, real-time system.
 
-## 🚀 Quick Overview
+It replaces slow, proxy-prone manual roll-call with a contact-less, browser-based biometric workflow that runs on ordinary laptops (no special hardware), and gives administrators a live view of attendance while students track their own records on a mobile app.
 
-This app provides a complete student management system with:
-- **Student Management**: View, search, and manage student profiles
-- **Course Tracking**: Monitor courses, grades, and academic progress  
-- **Attendance System**: Track attendance with visual progress indicators
-- **Statistics Dashboard**: Comprehensive analytics and reporting
-- **Profile Management**: Personal student profiles with photo upload
+> Final Year Project — BS Computer Science, **Government College University Faisalabad (GCUF)**, 2022–2026.
 
-## 📱 Screenshots
+---
 
-<div align="center">
+## 🌐 Live Demo
 
-### Main App Screens
-<img src="assets/screen%20shots%20app/student%20screen1.png" width="200" alt="Students Screen">
-<img src="assets/screen%20shots%20app/course%20screen2.png" width="200" alt="Courses Screen">
-<img src="assets/screen%20shots%20app/Attendence%20screen3.png" width="200" alt="Attendance Screen">
+| App | URL |
+|-----|-----|
+| 🖥️ Admin Web Dashboard | https://academicx-admin.vercel.app |
+| 📷 Biometric Device App | https://academicx-biometric.vercel.app |
+| ⚙️ Server / REST API | https://academicx-server.vercel.app |
+| 📱 Student Mobile App | Run via Expo (`npx expo start`) |
 
-*Students List | Course Management | Attendance Tracking*
+---
 
-### Additional Features
-<img src="assets/screen%20shots%20app/Stats%20screen4.png" width="200" alt="Statistics Screen">
-<img src="assets/screen%20shots%20app/profile%20screen5.png" width="200" alt="Profile Screen">
+## ✨ Key Features
 
-*Statistics Dashboard | Profile Management*
+### 🧠 Biometric Attendance
+- **Facial recognition** with `face-api.js` (SSD MobileNet detector → 68-point landmarks → 128-D descriptor).
+- Live matching via **Euclidean distance** with a configurable threshold — resistant to proxy ("buddy") attendance.
+- **Fingerprint option** using the browser's **WebAuthn / FIDO2** API.
+- Descriptor-only storage (no raw face images are kept).
 
-</div>
+### 🗓️ Timetable-Driven Sessions
+- Weekly timetable per batch; attendance **sessions open/close automatically** for each lecture.
+- On completion, absentees are marked automatically.
 
-## Features
+### 🏫 Academic Management
+- Full CRUD for **departments → batches → courses → students** with an approval workflow.
+- **Course ↔ batch assignment**, capacity limits, and optional auto-enrollment of a batch.
 
-### 🎯 Core Functionality
-- **React Navigation**: Stack and Bottom Tab navigation
-- **Student Management**: Complete student list with detailed profiles
-- **Search Functionality**: Real-time search across student names, emails, and IDs
-- **Course Tracking**: Course details with grades and progress
-- **Attendance Monitoring**: Visual progress bars and attendance history
-- **Profile Management**: Comprehensive student profile with photo upload
+### 📊 Marks, Grading & Leave
+- Component-wise marks (midterm / assignments / quizzes / final) with **auto total, grade, and GPA**.
+- Student **leave requests** with a monthly quota and automatic excused-attendance handling.
 
-### 📱 Screens
-1. **Students Tab**
-   - Student list with FlatList implementation
-   - Tap navigation to detailed student profiles
-   - Attendance summary for each student
-   - Gender-based color coding
+### ⚡ Real-Time Monitoring
+- **Socket.io** live attendance feed — administrators watch students being marked present in real time.
 
-2. **Courses Tab**
-   - Course list with grades and progress
-   - Detailed course information
-   - Assignment tracking
-   - Attendance per course
+### 🔐 Security & Configurability
+- **JWT** authentication with role-based guards (super-admin / admin / HOD / student).
+- A dynamic **Settings** module (attendance threshold, grading scale, leave quota, biometric thresholds).
 
-3. **Attendance Tab**
-   - Progress bar visualization
-   - Time slot selection (Morning, Afternoon, Evening)
-   - Attendance history
-   - Statistics and summaries
+---
 
-4. **Profile Tab**
-   - Student profile information
-   - Academic statistics
-   - Settings and options
-   - Emergency contact details
-
-### 🎨 Design Features
-- **Consistent Theme**: Purple and blue gradient design matching the provided mockup
-- **Clean UI**: Card-based layout with proper spacing and shadows
-- **Mobile Optimized**: Responsive design for mobile devices
-- **Status Indicators**: Color-coded status for attendance, grades, and gender
-- **Progress Visualization**: Progress bars for attendance tracking
-
-
-
-## Technology Stack
-
-- **React Native** with Expo CLI
-- **React Navigation** (Stack + Bottom Tabs)
-- **Expo Linear Gradient** for gradient backgrounds
-- **Expo Vector Icons** for consistent iconography
-- **Custom Theme System** for consistent styling
-
-## Installation & Setup
-
-1. **Prerequisites**
-   ```bash
-   npm install -g expo-cli
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   cd StudentDashboard
-   npm install
-   ```
-
-3. **Run the Application**
-   ```bash
-   # For iOS (requires macOS)
-   npm run ios
-   
-   # For Android
-   npm run android
-   
-   # For Web
-   npm run web
-   
-   # Start Expo development server
-   npx expo start
-   ```
-
-## Project Structure
+## 🏗️ System Architecture
 
 ```
-StudentDashboard/
-├── App.js                 # Main app component with navigation setup
-├── src/
-│   ├── screens/          # All screen components
-│   │   ├── StudentsScreen.js
-│   │   ├── StudentDetailsScreen.js
-│   │   ├── CoursesScreen.js
-│   │   ├── CourseDetailsScreen.js
-│   │   ├── AttendanceScreen.js
-│   │   └── ProfileScreen.js
-│   ├── styles/
-│   │   └── theme.js      # Centralized theme configuration
-│   └── data/
-│       └── mockData.js   # Sample data for development
-└── README.md
+ ┌───────────────┐   ┌────────────────┐   ┌────────────────────┐
+ │ Student Mobile│   │  Admin Web      │   │ Biometric Device   │
+ │ App (Expo)    │   │  Dashboard      │   │ App (face-api.js)  │
+ └──────┬────────┘   └───────┬────────┘   └─────────┬──────────┘
+        │      REST / Socket.io                      │
+        └──────────┬──────────┴───────────┬──────────┘
+                   ▼                       ▼
+            ┌───────────────────────────────────┐
+            │  Express.js REST API + Socket.io   │
+            └──────────────────┬────────────────┘
+                               ▼
+                     ┌────────────────────┐
+                     │  MongoDB (Atlas)    │
+                     └────────────────────┘
 ```
 
-## Key Components
+Three client apps share **one** backend. The biometric app computes face descriptors **on-device** and sends only the matched student's identity to the server — saving bandwidth and keeping video off the network.
 
-### Navigation Structure
-- **MainTabs**: Bottom tab navigator with 4 tabs
-- **StudentsStack**: Stack navigator for student-related screens
-- **CoursesStack**: Stack navigator for course-related screens
+---
 
-### Theme System
-- Centralized color palette matching the design
-- Typography scale and spacing system
-- Shadow and border radius configurations
-- Consistent styling across all components
+## 🛠️ Tech Stack
 
-### Data Management
-- Mock data structure for students, courses, and attendance
-- Realistic sample data for testing and development
-- Extensible data models for future enhancements
+| Layer | Technology |
+|-------|-----------|
+| Student mobile app | React Native, Expo (SDK 56) |
+| Admin & biometric web | React, Vite, Tailwind CSS |
+| Face recognition | `@vladmandic/face-api` (face-api.js) |
+| Fingerprint | WebAuthn / FIDO2 |
+| Backend | Node.js, Express |
+| Real-time | Socket.io |
+| Database | MongoDB (Mongoose ODM) |
+| Auth | JWT, bcrypt |
+| Hosting | Vercel + MongoDB Atlas |
 
-## Features Implemented
+---
 
-✅ **React Navigation** with Stack and Bottom Tabs  
-✅ **Student List** with FlatList and tap navigation  
-✅ **Search Functionality** with real-time filtering  
-✅ **Student Details** screen with comprehensive information  
-✅ **Course Details** with grades and progress tracking  
-✅ **Attendance** with progress bar visualization  
-✅ **Profile Management** with photo upload capability  
-✅ **Clean, consistent CSS styling** and mobile layout  
-✅ **Purple/blue theme** matching the provided design  
+## 📁 Repository Structure
 
-## Customization
-
-### Adding New Students
-Edit `src/data/mockData.js` to add new student entries with the following structure:
-```javascript
-{
-  id: 'unique_id',
-  name: 'Student Name',
-  email: 'email@domain.com',
-  // ... other properties
-}
+```
+AcademicX/
+├── App.js, index.js, app.json   # Student mobile app entry (React Native / Expo)
+├── src/                          # Mobile screens, navigation, context, theme
+│   ├── screens/                  #   student + admin mobile screens
+│   ├── styles/theme.js           #   shared theme tokens
+│   ├── socket/                   #   socket client
+│   └── config.js                 #   API base URL
+├── admin/                        # Admin web dashboard (React + Vite)
+│   └── src/{pages,components,context,api}
+├── biometric/                    # Biometric device app (React + Vite + face-api.js)
+│   ├── src/{pages,components,socket}
+│   └── public/models/            #   face-api model files
+└── server/                       # Express API + Socket.io + MongoDB
+    ├── app.js, server.js         #   app (serverless) + local entry (with sockets)
+    ├── routes/ controllers/ models/ middleware/
+    └── api/index.js              #   Vercel serverless entry
 ```
 
-### Modifying Theme
-Update `src/styles/theme.js` to customize colors, typography, and spacing.
+---
 
-### Adding New Screens
-1. Create new screen component in `src/screens/`
-2. Add to appropriate stack navigator in `App.js`
-3. Update navigation types if using TypeScript
+## 🚀 Getting Started
 
-## Development Notes
+### Prerequisites
+- Node.js 18+ and npm
+- MongoDB (local or a free **MongoDB Atlas** cluster)
+- Expo Go app (to run the mobile app on a device)
 
-- The app uses mock data for demonstration purposes
-- All screens are fully functional with realistic data
-- The design closely matches the provided screenshot
-- Navigation is properly configured with stack and tab navigators
-- Progress bars are implemented for attendance visualization
-- Color coding is used throughout for status indicators
+### 1. Clone
+```bash
+git clone https://github.com/idrees-raza-mi/AcadmiX-FYP.git
+cd AcadmiX-FYP
+```
 
-## Future Enhancements
+### 2. Backend (`server/`)
+```bash
+cd server
+npm install
+# create server/.env :
+#   MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/academicx
+#   JWT_SECRET=<long-random-string>
+#   JWT_EXPIRE=7d
+#   SUPERADMIN_SETUP_KEY=<one-time-setup-key>
+npm run dev          # starts on http://localhost:5000 (with Socket.io)
+```
+Create the first super-admin (one time):
+```bash
+curl -X POST http://localhost:5000/api/auth/admin/setup \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Admin","email":"admin@academicx.edu","password":"ChangeMe123","setupKey":"<SUPERADMIN_SETUP_KEY>"}'
+```
 
-- Real API integration
-- User authentication
-- Push notifications
-- Offline data storage
-- Advanced filtering and search
-- Export functionality for reports
-- Dark mode support
+### 3. Admin Dashboard (`admin/`)
+```bash
+cd admin
+npm install
+echo "VITE_API_URL=http://localhost:5000" > .env.local
+npm run dev          # http://localhost:5173
+```
 
-## License
+### 4. Biometric App (`biometric/`)
+```bash
+cd biometric
+npm install
+echo "VITE_API_URL=http://localhost:5000" > .env.local
+# Ensure face-api models exist in biometric/public/models/
+npm run dev
+```
+> WebAuthn (fingerprint) needs HTTPS in production; `localhost` is treated as secure for development.
 
-This project is created for educational purposes as part of a React Native assignment.
+### 5. Student Mobile App (root)
+```bash
+npm install
+# In src/config.js set USE_LOCAL=true and LOCAL_IP to your PC's LAN IP for device testing,
+# or leave it pointing at the deployed server.
+npx expo start -c     # scan the QR code with Expo Go
+```
+
+---
+
+## 📖 Typical Workflow
+
+1. **Admin** creates a Department → Batch → Course (assigned to the batch) → enrolls students.
+2. **Admin** registers each student's face in the **Biometric App → Setup**.
+3. **Admin** adds a **Timetable** slot for the batch/course.
+4. On class day, the **Biometric App** opens the session, scans faces, and marks attendance live.
+5. **Admin** watches the **Live Attendance** monitor; **students** see their attendance & GPA in the mobile app.
+
+---
+
+## 👥 Team & Roles
+
+| Member | Reg. No. | Role |
+|--------|----------|------|
+| **Muhammad Adrees Raza** | 2022-GCUF-060177 | Project Leader · Backend & Database (API, server, deployment) |
+| **Maha Mariyam Fiaz Hashmi** | 2022-GCUF-060189 | UI/UX Design · Student Mobile App |
+| **Manzar Abbas** | 2022-GCUF-060168 | Biometric & Computer-Vision Subsystem |
+| **Mushtaq Hussain** | 2022-GCUF-060185 | Admin Web Dashboard · QA & Documentation |
+
+**Supervised by:** Prof. Dure-Subhani — Department of Computer Science, GCUF.
+
+---
+
+## 📌 Notes & Limitations
+- No liveness / anti-spoofing detection yet (a photo could match) — planned for a future release.
+- Recognition accuracy depends on lighting and camera quality.
+- On free hosting tiers, persistent real-time connections and uploaded files may be limited.
+
+## 📄 License
+Created for educational purposes as a Final Year Project at Government College University Faisalabad.
