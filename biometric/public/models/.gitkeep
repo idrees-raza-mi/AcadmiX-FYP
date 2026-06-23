@@ -1,0 +1,7 @@
+# Place face-api.js model files in this directory.
+# Download from: https://github.com/vladmandic/face-api/tree/master/model
+#
+# Required models:
+#   - ssd_mobilenetv1_model-weights_manifest.json (+ weight shards)
+#   - face_landmark_68_model-weights_manifest.json (+ weight shards)
+#   - face_recognition_model-weights_manifest.json (+ weight shards)

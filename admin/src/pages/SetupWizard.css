@@ -1,0 +1,126 @@
+.setup-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ecfdf5 0%, #ecfdf5 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px 16px;
+}
+
+.setup-container {
+  width: 100%; max-width: 600px;
+}
+
+/* Header */
+.setup-header { text-align: center; margin-bottom: 24px; }
+.setup-logo {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white; font-size: 16px; font-weight: 800;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+}
+.setup-title { font-size: 20px; font-weight: 700; color: #0F172A; margin: 0 0 4px; }
+.setup-subtitle { font-size: 13px; color: #64748B; margin: 0; }
+
+/* Steps */
+.setup-steps {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin-bottom: 20px; position: relative;
+}
+.setup-step {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 5px; position: relative; z-index: 1;
+}
+.setup-step-circle {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  background: white; color: #94A3B8;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  transition: all 0.2s;
+}
+.setup-step.active .setup-step-circle {
+  border-color: #059669; background: #059669; color: white;
+}
+.setup-step.done .setup-step-circle {
+  border-color: #10B981; background: #10B981; color: white;
+}
+.setup-step-label { font-size: 10px; font-weight: 500; color: #94A3B8; }
+.setup-step.active .setup-step-label,
+.setup-step.done .setup-step-label { color: #0F172A; }
+
+.setup-step-line {
+  width: 80px; height: 2px; background: #E2E8F0;
+  position: absolute; left: calc(50% + 14px); top: 13px; z-index: 0;
+  transition: background 0.2s;
+}
+.setup-step-line.done { background: #10B981; }
+
+/* Card */
+.setup-card {
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.setup-card-header {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 18px; padding-bottom: 14px;
+  border-bottom: 1px solid #F1F5F9;
+}
+.setup-card-icon { color: #059669; margin-top: 2px; flex-shrink: 0; }
+.setup-card-header h2 { font-size: 14px; font-weight: 700; color: #0F172A; margin: 0 0 2px; }
+.setup-card-header p  { font-size: 12px; color: #64748B; margin: 0; }
+
+/* Section title */
+.setup-section-title {
+  font-size: 11px; font-weight: 600; color: #64748B;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  margin: 16px 0 10px;
+}
+
+/* Buttons */
+.setup-next-btn {
+  width: 100%; margin-top: 18px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.setup-btn-row {
+  display: flex; gap: 10px; margin-top: 18px;
+}
+.setup-btn-row .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+/* Note */
+.setup-note {
+  background: #F0FDF4; border: 1px solid #BBF7D0;
+  border-radius: 8px; padding: 9px 12px;
+  font-size: 11px; color: #15803D; margin-top: 14px;
+}
+
+/* Done state */
+.setup-done { text-align: center; padding: 32px 24px; }
+.setup-done-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 14px rgba(16,185,129,0.3);
+}
+.setup-done h2 { font-size: 18px; font-weight: 700; color: #0F172A; margin: 0 0 6px; }
+.setup-done p  { font-size: 13px; color: #64748B; margin: 0 0 20px; }
+
+.setup-code-reveal {
+  background: #F8FAFC; border: 1px solid #E2E8F0;
+  border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 20px; text-align: center;
+}
+.setup-code-label { font-size: 11px; color: #64748B; margin-bottom: 8px; }
+.setup-code {
+  font-size: 22px; font-weight: 800; letter-spacing: 0.15em;
+  color: #059669; font-family: monospace;
+  background: white; border: 2px dashed #6ee7b7;
+  border-radius: 8px; padding: 8px 16px;
+  display: inline-block; margin-bottom: 6px;
+}
+.setup-code-hint { font-size: 11px; color: #94A3B8; }

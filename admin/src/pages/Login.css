@@ -1,0 +1,83 @@
+.login-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Left */
+.login-left {
+  flex: 1;
+  background: linear-gradient(145deg, #047857 0%, #059669 45%, #10b981 100%);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+.login-brand { display: flex; align-items: center; gap: 14px; }
+.login-brand-icon {
+  width: 46px; height: 46px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; font-weight: 800;
+}
+.login-brand-name { font-size: 24px; font-weight: 800; }
+
+.login-hero-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+.login-hero-sub { color: rgba(255,255,255,0.75); font-size: 16px; line-height: 1.6; max-width: 340px; }
+
+.login-features { display: flex; flex-direction: column; gap: 12px; }
+.login-feature-item {
+  display: flex; align-items: center; gap: 12px;
+  color: rgba(255,255,255,0.9); font-size: 15px;
+}
+.login-feature-dot {
+  width: 8px; height: 8px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Right */
+.login-right {
+  width: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  background: white;
+}
+.login-form { width: 100%; max-width: 360px; }
+.login-form-header { margin-bottom: 32px; }
+.login-form-header h2 { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.login-form-header p { color: var(--text-secondary); font-size: 14px; }
+
+.login-password-wrap { position: relative; }
+.login-password-wrap .form-input { padding-right: 44px; }
+.login-eye {
+  position: absolute; right: 12px; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none; font-size: 16px; padding: 4px;
+}
+
+.login-submit { width: 100%; padding: 13px; font-size: 15px; margin-top: 6px; }
+
+.login-hint {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+.login-hint code {
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--primary);
+}
+
+@media (max-width: 800px) {
+  .login-left { display: none; }
+  .login-right { width: 100%; }
+}

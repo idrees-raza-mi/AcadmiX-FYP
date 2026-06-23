@@ -1,0 +1,17 @@
+.serial-code-large {
+  background: linear-gradient(135deg, #ecfdf5, #ecfdf5);
+  color: var(--primary-dark);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  border: 1px solid #a7f3d0;
+}
+.copy-btn {
+  background: none; border: none;
+  font-size: 15px; padding: 2px;
+  cursor: pointer; opacity: .7;
+  transition: opacity .15s;
+}
+.copy-btn:hover { opacity: 1; }
